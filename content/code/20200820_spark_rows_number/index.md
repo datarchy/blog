@@ -19,58 +19,29 @@ For example, let this be our dataframe (taken from [**Spark: The Definitive Guid
 val df = spark.read.option("header", "true").csv(".../data/flight-data/csv/*")
 ```
 ```plaintext
-+--------------------+-------------------+-----+
-|   DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|
-+--------------------+-------------------+-----+
-|       United States|            Romania|    1|
-|       United States|            Ireland|  264|
-|       United States|              India|   69|
-|               Egypt|      United States|   24|
-|   Equatorial Guinea|      United States|    1|
-|       United States|          Singapore|   25|
-|       United States|            Grenada|   54|
-|          Costa Rica|      United States|  477|
-|             Senegal|      United States|   29|
-|       United States|   Marshall Islands|   44|
-|              Guyana|      United States|   17|
-|       United States|       Sint Maarten|   53|
-|               Malta|      United States|    1|
-|             Bolivia|      United States|   46|
-|            Anguilla|      United States|   21|
-|Turks and Caicos ...|      United States|  136|
-|       United States|        Afghanistan|    2|
-|Saint Vincent and...|      United States|    1|
-|               Italy|      United States|  390|
-|       United States|             Russia|  156|
-+--------------------+-------------------+-----+
-only showing top 20 rows
++-----------------+-------------------+-----+
+|DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|
++-----------------+-------------------+-----+
+|    United States|            Romania|    1|
+|    United States|            Ireland|  264|
+|    United States|              India|   69|
+|            Egypt|      United States|   24|
+|Equatorial Guinea|      United States|    1|
++-----------------+-------------------+-----+
+only showing top 5 rows
 ```
 After adding a column containing the row number, the result should look like: 
 ```plaintext
-+--------------------+-------------------+-----+-------+
-|   DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
-+--------------------+-------------------+-----+-------+
-|       United States|            Romania|    1|      1|
-|       United States|            Ireland|  264|      2|
-|       United States|              India|   69|      3|
-|               Egypt|      United States|   24|      4|
-|   Equatorial Guinea|      United States|    1|      5|
-|       United States|          Singapore|   25|      6|
-|       United States|            Grenada|   54|      7|
-|          Costa Rica|      United States|  477|      8|
-|             Senegal|      United States|   29|      9|
-|       United States|   Marshall Islands|   44|     10|
-|              Guyana|      United States|   17|     11|
-|       United States|       Sint Maarten|   53|     12|
-|               Malta|      United States|    1|     13|
-|             Bolivia|      United States|   46|     14|
-|            Anguilla|      United States|   21|     15|
-|Turks and Caicos ...|      United States|  136|     16|
-|       United States|        Afghanistan|    2|     17|
-|Saint Vincent and...|      United States|    1|     18|
-|               Italy|      United States|  390|     19|
-|       United States|             Russia|  156|     20|
-+--------------------+-------------------+-----+-------+
++-----------------+-------------------+-----+-------+
+|DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
++-----------------+-------------------+-----+-------+
+|    United States|            Romania|    1|      1|
+|    United States|            Ireland|  264|      2|
+|    United States|              India|   69|      3|
+|            Egypt|      United States|   24|      4|
+|Equatorial Guinea|      United States|    1|      5|
++-----------------+-------------------+-----+-------+
+only showing top 5 rows
 ```
 * `row_num` will contain a sequential consecutive row number that will cover the whole dataframe.
 
@@ -101,31 +72,16 @@ In our window specification we answered two questions:
 val df2 = df.withColumn("row_num", row_number().over(windSpec))
 ```
 ```plaintext
-+--------------------+-------------------+-----+-------+
-|   DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
-+--------------------+-------------------+-----+-------+
-|       United States|            Romania|    1|      1|
-|       United States|            Ireland|  264|      2|
-|       United States|              India|   69|      3|
-|               Egypt|      United States|   24|      4|
-|   Equatorial Guinea|      United States|    1|      5|
-|       United States|          Singapore|   25|      6|
-|       United States|            Grenada|   54|      7|
-|          Costa Rica|      United States|  477|      8|
-|             Senegal|      United States|   29|      9|
-|       United States|   Marshall Islands|   44|     10|
-|              Guyana|      United States|   17|     11|
-|       United States|       Sint Maarten|   53|     12|
-|               Malta|      United States|    1|     13|
-|             Bolivia|      United States|   46|     14|
-|            Anguilla|      United States|   21|     15|
-|Turks and Caicos ...|      United States|  136|     16|
-|       United States|        Afghanistan|    2|     17|
-|Saint Vincent and...|      United States|    1|     18|
-|               Italy|      United States|  390|     19|
-|       United States|             Russia|  156|     20|
-+--------------------+-------------------+-----+-------+
-only showing top 20 rows
++-----------------+-------------------+-----+-------+
+|DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
++-----------------+-------------------+-----+-------+
+|    United States|            Romania|    1|      1|
+|    United States|            Ireland|  264|      2|
+|    United States|              India|   69|      3|
+|            Egypt|      United States|   24|      4|
+|Equatorial Guinea|      United States|    1|      5|
++-----------------+-------------------+-----+-------+
+only showing top 5 rows
 ```
 Done! 
 
@@ -161,31 +117,16 @@ Similar to the last section, we will use the `monotonically_increasing_id()` fun
 val df2 = df.withColumn("row_id", monotonically_increasing_id())
 ```
 ```plaintext
-+--------------------+-------------------+-----+------+
-|   DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_id|
-+--------------------+-------------------+-----+------+
-|       United States|            Romania|    1|     0|
-|       United States|            Ireland|  264|     1|
-|       United States|              India|   69|     2|
-|               Egypt|      United States|   24|     3|
-|   Equatorial Guinea|      United States|    1|     4|
-|       United States|          Singapore|   25|     5|
-|       United States|            Grenada|   54|     6|
-|          Costa Rica|      United States|  477|     7|
-|             Senegal|      United States|   29|     8|
-|       United States|   Marshall Islands|   44|     9|
-|              Guyana|      United States|   17|    10|
-|       United States|       Sint Maarten|   53|    11|
-|               Malta|      United States|    1|    12|
-|             Bolivia|      United States|   46|    13|
-|            Anguilla|      United States|   21|    14|
-|Turks and Caicos ...|      United States|  136|    15|
-|       United States|        Afghanistan|    2|    16|
-|Saint Vincent and...|      United States|    1|    17|
-|               Italy|      United States|  390|    18|
-|       United States|             Russia|  156|    19|
-+--------------------+-------------------+-----+------+
-only showing top 20 rows
++-----------------+-------------------+-----+------+
+|DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_id|
++-----------------+-------------------+-----+------+
+|    United States|            Romania|    1|     0|
+|    United States|            Ireland|  264|     1|
+|    United States|              India|   69|     2|
+|            Egypt|      United States|   24|     3|
+|Equatorial Guinea|      United States|    1|     4|
++-----------------+-------------------+-----+------+
+only showing top 5 rows
 ```
 
 At the first sight, the result looks almost like what we are looking for, but it is not really: 
@@ -201,23 +142,8 @@ df2.orderBy('row_id.desc).show
 |       United States|               Haiti|  193|42949673198|
 |       United States|Saint Kitts and N...|  123|42949673197|
 |       United States|       French Guiana|    4|42949673196|
-|        Cook Islands|       United States|   12|42949673195|
-|             Uruguay|       United States|   60|42949673194|
-|       United States|             Bolivia|   14|42949673193|
-|       United States| Trinidad and Tobago|  175|42949673192|
-|       United States|              Jordan|   64|42949673191|
-|       United States|      Cayman Islands|  278|42949673190|
-|           Australia|       United States|  293|42949673189|
-|       United States|            Barbados|   89|42949673188|
-|       United States|            Colombia|  888|42949673187|
-|       United States|               Qatar|   96|42949673186|
-|       United States|                Cuba|  419|42949673185|
-|       United States|             Bermuda|  190|42949673184|
-|               Chile|       United States|  156|42949673183|
-|           Greenland|       United States|    2|42949673182|
-|       United States|             Uruguay|   18|42949673181|
 +--------------------+--------------------+-----+-----------+
-only showing top 20 rows
+only showing top 5 rows
 ```
 
 The `row_id` is way bigger than the total count of this dataset (which is 1 502 rows), and that is because the id generated by `monotonically_increatsing_id()` is (bitwise) composed of two parts: 
@@ -239,13 +165,8 @@ val df3 = df2.withColumn("partition_id", shiftRight('row_id,33))
 |    United States|              India|   69|     2|           0|         2|
 |            Egypt|      United States|   24|     3|           0|         3|
 |Equatorial Guinea|      United States|    1|     4|           0|         4|
-|    United States|          Singapore|   25|     5|           0|         5|
-|    United States|            Grenada|   54|     6|           0|         6|
-|       Costa Rica|      United States|  477|     7|           0|         7|
-|          Senegal|      United States|   29|     8|           0|         8|
-|    United States|   Marshall Islands|   44|     9|           0|         9|
 +-----------------+-------------------+-----+------+------------+----------+
-only showing top 10 rows
+only showing top 5 rows
 ```
 
 * `shiftRight`: is used to extract the partition id, by shifting the id by 33 bits to the right (equivalent to the `>>` operator).
@@ -326,31 +247,16 @@ val df4 = df3.join(broadcast(partitions_offset), "partition_id")
              .drop("partition_id", "row_id", "row_offset", "partition_size", "partition_offset")
 ```
 ```plaintext
-+--------------------+-------------------+-----+-------+
-|   DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
-+--------------------+-------------------+-----+-------+
-|       United States|            Romania|    1|      1|
-|       United States|            Ireland|  264|      2|
-|       United States|              India|   69|      3|
-|               Egypt|      United States|   24|      4|
-|   Equatorial Guinea|      United States|    1|      5|
-|       United States|          Singapore|   25|      6|
-|       United States|            Grenada|   54|      7|
-|          Costa Rica|      United States|  477|      8|
-|             Senegal|      United States|   29|      9|
-|       United States|   Marshall Islands|   44|     10|
-|              Guyana|      United States|   17|     11|
-|       United States|       Sint Maarten|   53|     12|
-|               Malta|      United States|    1|     13|
-|             Bolivia|      United States|   46|     14|
-|            Anguilla|      United States|   21|     15|
-|Turks and Caicos ...|      United States|  136|     16|
-|       United States|        Afghanistan|    2|     17|
-|Saint Vincent and...|      United States|    1|     18|
-|               Italy|      United States|  390|     19|
-|       United States|             Russia|  156|     20|
-+--------------------+-------------------+-----+-------+
-only showing top 20 rows
++-----------------+-------------------+-----+-------+
+|DEST_COUNTRY_NAME|ORIGIN_COUNTRY_NAME|count|row_num|
++-----------------+-------------------+-----+-------+
+|    United States|            Romania|    1|      1|
+|    United States|            Ireland|  264|      2|
+|    United States|              India|   69|      3|
+|            Egypt|      United States|   24|      4|
+|Equatorial Guinea|      United States|    1|      5|
++-----------------+-------------------+-----+-------+
+only showing top 5 rows
 ```
 * `broadcast`: before joining, we added a broadcast hint so that the `partitions_offset` dataframe gets broadcasted through the Spark cluster to avoid shuffles.
 * We needed to adjust the calculation by adding 1 to the offsets so that `row_num` starts from 1.
