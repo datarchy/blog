@@ -263,6 +263,7 @@ only showing top 5 rows
 * We used `drop()` to clean out the intermediary columns.
 
 ## Conclusion
+-------
 In this tutorial, we explored two different ways to add a sequential consecutive row numbers to a dataframe. The first one does not use the parallelism that Spark offers. While the second one tries to parallelize the computation. 
 
 I’ve made some comparisons of execution times using 9 datasets with different numbers of rows. I run my tests on a local setting (8 cores). 
