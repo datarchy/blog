@@ -1,5 +1,5 @@
 ---
-title: "Contact"
+title: "About"
 date: 2020-08-10T13:18:45+01:00
 excludeFromTopNav: false
 showDate: false
