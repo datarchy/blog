@@ -1,9 +1,11 @@
 ---
-title: "Hello !"
-date: 2017-11-01T13:18:45+01:00
+title: "Contact"
+date: 2020-08-10T13:18:45+01:00
 excludeFromTopNav: false
 showDate: false
 ---
+
+Hello, 
 
 Thank you for your visit, 
 
