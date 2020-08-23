@@ -137,7 +137,7 @@ disqusShortname = "https-www-datarchy-tech"
   [Languages.fr]
     weight = 2
     title = "Data Programmers"
-    subtitle = "Apprenons l'inginérie data ensemble!"
+    subtitle = "Apprenons l'ingénierie data ensemble!"
 
 # don't change anything below
 [taxonomies]
