@@ -107,7 +107,7 @@ disqusShortname = "https-www-datarchy-tech"
     amountCategoriesInFooter = 7
 
     # show a language chooser in the footer
-    showFooterLanguageChooser = true
+    showFooterLanguageChooser = false
 
     # social media profile urls for the footer links
     showSocialMedia = true
