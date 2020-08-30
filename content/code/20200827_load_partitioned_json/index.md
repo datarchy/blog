@@ -122,7 +122,7 @@ FileScan json default.sf_bike_status[bikes_available#0L,docks_available#1L,time#
 ```
 * As you can see in the `InMemoryFileIndex`, reading the data via a table has enabled predicate pushdown. This leads to improvement in read performance. 
 
-It is worth saying that even when reading from a table, partition discovery is still there. But, since we have predicate pushdown enabled, the partition discovery is limited to the scope of the paths covered by the filter. In our case, the partition discovery did not trigger Spark jobs, because the number of paths (25) is below the parallel discovery threshold (32), as discussed in the first section.
+It is worth saying that even when reading from a table, partition discovery is still there. But, since we have predicate pushdown enabled, the partition discovery is limited to the scope of the paths covered by the filter. In our case, the partition discovery did not trigger Spark jobs, because the number of paths (2 paths after predicate pushdow) is below the parallel discovery threshold (default value is 32), as discussed in the first section.
 
 ### Conclusion
 ----
