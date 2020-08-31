@@ -28,7 +28,7 @@ val df1 = spark.read
 	.filter("station_id = 10 and (month in ('2013-08', '2013-09'))")
 ```
 
-Despite the fact that the code above does not contain any action yet, Spark starts three jobs that took few minutes to complete (on a local setting, with 8 cores and 32 Gigs or RAM):
+Despite the fact that the code above does not contain any action yet, Spark starts three jobs that took few minutes to complete (on a local setting, with 8 cores and 32 Gigs of RAM):
 ![Slow JSON Loading](slow_json_loading.png)
 * Job 0 and Job 1 : Spark (and more specifically the Data Source API) is listing the content of the root folder and its subfolders, in order to discover the partitioning columns and map each column value to a path. The result of this job is an `InMemoryFileIndex` object that will be used later to access the data.
 * To do partition discovery, Spark does not systematically trigger jobs; this depends on a threshold that is defined in configuration, namely `spark.sql.sources.parallelPartitionDiscovery.threshold` (default value is 32). If the number of paths that constitute the data is below this threshold, Spark will achieve partition discovery directly on the driver, otherwise, Spark will launch parallel jobs, as we have seen in our case. You can take a look at the implementation of this logic [**here**](https://github.com/apache/spark/blob/v3.0.0/sql/core/src/main/scala/org/apache/spark/sql/execution/datasources/InMemoryFileIndex.scala#L186).  
